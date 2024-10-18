@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">IrrigaApp</string>
+    <string name="fechar">Fechar</string>
+    <string name="informa_es_do_sensor">Informações do Sensor</string>
+</resources>

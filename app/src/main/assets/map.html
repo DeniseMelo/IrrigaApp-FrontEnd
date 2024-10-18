@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, 1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <title>Mapa de Chuva com OpenWeather</title>
+
+    <style>
+
+        #map {
+            height: 400px;
+            width: 100vw;
+            display: block;
+        }
+
+        .leaflet-container {
+            height: 100%;
+            width: 100%;
+        }
+
+        .legend {
+            background: white;
+            padding: 5px;
+            font-size: 12px;
+            color: #555;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .legend i {
+            width: 15px;
+            height: 15px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+
+        .legend .chuva {
+            background-color: #5e3b86;
+        }
+
+        .legend .nuvens {
+            background-color:rgba(192, 192, 192, 0.5);
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+
+<script>
+    var openWeatherToken = 'aa61245715c299891ce6d7ed160e6d71';
+
+    // Inicializa o mapa do Leaflet com OpenStreetMap como base
+    var map = L.map('map').setView([0, 0], 2);
+
+    // OpenStreetMap
+    var osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    });
+    osmLayer.addTo(map);
+
+    // Camada de Nuvens do OpenWeather
+    var cloudsLayer = L.tileLayer(`https://tile.openweathermap.org/map/clouds_new/{z}/{x}/{y}.png?appid=${openWeatherToken}`, {
+        attribution: '&copy; <a href="https://openweathermap.org/">OpenWeather</a>',
+        opacity: 1.0
+    });
+
+    // Camada de Precipitação do OpenWeather
+    var precipitationLayer = L.tileLayer(`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${openWeatherToken}`, {
+        attribution: '&copy; <a href="https://openweathermap.org/">OpenWeather</a>',
+        opacity: 1.0
+    });
+
+
+    cloudsLayer.addTo(map);
+    precipitationLayer.addTo(map);
+
+    // Função chamada pelo Kotlin para definir a localização do usuário
+    function setUserLocation(latitude, longitude) {
+        var userLocation = [latitude, longitude];
+        map.setView(userLocation, 4);
+        L.marker(userLocation).addTo(map);
+    }
+
+    // legenda
+    var legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'legend');
+        div.innerHTML += '<i class="chuva"></i> Chuva&nbsp;&nbsp;';
+        div.innerHTML += '<i class="nuvens"></i> Nuvens';
+
+        return div;
+    };
+
+    legend.addTo(map);
+
+</script>
+</body>
+</html>
