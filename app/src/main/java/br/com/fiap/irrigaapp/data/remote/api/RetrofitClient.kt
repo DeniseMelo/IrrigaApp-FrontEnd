@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    private const val BASE_URL = "http://192.168.0.78:8080"
+    private const val BASE_URL = "http://irriga-app-api-dev-bphqgvh6eqc8fret.eastus-01.azurewebsites.net"
 
     // Criação do Retrofit com ou sem autenticação
     private fun buildRetrofit(context: Context, withAuth: Boolean = true): Retrofit {
