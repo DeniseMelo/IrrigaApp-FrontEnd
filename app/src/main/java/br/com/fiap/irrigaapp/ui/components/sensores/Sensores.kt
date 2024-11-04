@@ -1,8 +1,7 @@
-package br.com.fiap.irrigaapp.ui.screens
+package br.com.fiap.irrigaapp.ui.components.sensores
 
 import android.annotation.SuppressLint
 import android.graphics.BitmapFactory
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.TextView

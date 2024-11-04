@@ -1,14 +1,15 @@
-package br.com.fiap.irrigaapp.ui.components
+package br.com.fiap.irrigaapp.ui.components.previsaotempo
 
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.platform.LocalContext
 import br.com.fiap.irrigaapp.data.remote.userLocation.getUserLocation
 
 @Composable
-fun MapLeaflet() {
+fun MapLeaflet(modifier: Modifier = Modifier) {
     val context = LocalContext.current
 
     AndroidView(factory = {

@@ -1,14 +1,19 @@
 package br.com.fiap.irrigaapp.viewmodel
 
-import androidx.lifecycle.ViewModel
+import android.annotation.SuppressLint
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import br.com.fiap.irrigaapp.data.model.DadosSensor
-import br.com.fiap.irrigaapp.data.remote.sensores.RetrofitClient
+import br.com.fiap.irrigaapp.data.remote.api.RetrofitClient
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-class SensoresViewModel : ViewModel() {
+class SensoresViewModel(application: Application) : AndroidViewModel(application) {
+
+    @SuppressLint("StaticFieldLeak")
+    private val context = getApplication<Application>().applicationContext
 
     private val _listaSensores = MutableStateFlow<List<DadosSensor>>(emptyList())
     val listaSensores: StateFlow<List<DadosSensor>> = _listaSensores
@@ -17,7 +22,8 @@ class SensoresViewModel : ViewModel() {
     fun carregarDadosSensores() {
         viewModelScope.launch {
             try {
-                val sensores = RetrofitClient.apiService.buscarDadosSensores()
+                // Passa o context ao chamar getApiService para obter os dados dos sensores
+                val sensores = RetrofitClient.getSensorApiService(context).buscarDadosSensores()
                 _listaSensores.value = sensores
             } catch (e: Exception) {
                 e.printStackTrace()

@@ -4,6 +4,7 @@ val mapboxDownloadsToken: String by project
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.10"
 }
 
 android {
@@ -62,6 +63,16 @@ android {
 }
 
 dependencies {
+
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.logging.interceptor)
+    implementation(libs.jakarta.validation.api)
+    implementation(libs.converter.scalars)
+
+
+
+
+
     // Retrofit para comunicação com APIs
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)

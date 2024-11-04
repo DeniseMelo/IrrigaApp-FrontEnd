@@ -32,6 +32,6 @@ fun SettingsScreen(navController: NavHostController) {
 @Preview(showBackground = true)
 @Composable
 fun SettingsScreenPreview() {
-    val navController = rememberNavController()  // Usa um NavController fictício
+    val navController = rememberNavController()
     SettingsScreen(navController = navController)
 }

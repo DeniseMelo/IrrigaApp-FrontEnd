@@ -24,4 +24,7 @@ object WeatherRetrofitClient {
     val apiService: OpenWeatherMapService by lazy {
         retrofit.create(OpenWeatherMapService::class.java)
     }
+    val weatherApiService: WeatherApiService by lazy {
+        retrofit.create(WeatherApiService::class.java)
+    }
 }
